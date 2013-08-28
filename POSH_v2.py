@@ -102,6 +102,7 @@ def plot_output(turbine_pos, substation_location, R, C):
     coord_list = substation_location + turbine_pos
     routing_length = find_routing_distance(R, C)
     title('Total distance = %s' % (str(routing_length)))
+    plt.axis('equal')
     for i in range(len(R)):
         x_coords = []
         y_coords = []
