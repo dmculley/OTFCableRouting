@@ -11,7 +11,7 @@ import copy
 #--------#
 
 turbine_pos = [[1,2],[1,3],[1,4],[1,5],[2,1],[2,2],[2,3],[2,4],[2,5],[3,1],[3,2],[3,3],[3,4],[3,5],[4,1],[4,2],[4,3],[4,4],[4,5],[5,1],[5,2],[5,3],[5,4]]
-substation_location = [[0,9], [0,0]]
+substation_location = [[0,9]]
 Cap = 10                                        # Capacity of cables (in number of turbines)
 
 # Info from mesh file
@@ -102,6 +102,7 @@ def plot_output(turbine_pos, substation_location, R, C):
     coord_list = substation_location + turbine_pos
     routing_length = find_routing_distance(R, C)
     title('Total distance = %s' % (str(routing_length)))
+    plt.axis('equal')
     for i in range(len(R)):
         x_coords = []
         y_coords = []
