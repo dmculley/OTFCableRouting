@@ -79,8 +79,6 @@ class CableCostGA(object):
         opt_route = best_chromosome[0]
         opt_breaks = best_chromosome[1]
         R = self.routing_coordinates(vertices, self.routing(opt_route, opt_breaks))
-        print R
-        print self.routing(opt_route, opt_breaks)
         plt.title('Total distance='+str(global_min))
         V = np.array((vertices))
         plt.plot(V[:,0],V[:,1],'o')
@@ -159,11 +157,8 @@ class CableCostGA(object):
         for i in range(len(rting_coords)):
             temp_r = rting_coords[i].tolist()
             del temp_r[0]
-            print temp_r
             CW = Clarke_Wright(temp_r, self.substation_location)
-            print temp_r
             temp_r = CW.run()
-            print temp_r
             del temp_r[0]
             for j in range(len(temp_r)):
                 temp_r[j] = self.turbine_locations.index(temp_r[j]) + 1
@@ -199,7 +194,6 @@ class CableCostGA(object):
         ## transformation 4
         if iteration < 15:
             trans_4 = copy.deepcopy(bestof8route)
-            print 't4', trans_4
             trans_4 = self.clarke_wright(trans_4, bestof8breaks, vertices)
             temp_pop_route.append(trans_4)
             temp_pop_breaks.append(bestof8breaks)
@@ -207,15 +201,8 @@ class CableCostGA(object):
             temp_pop_route.append(bestof8route)
             temp_pop_breaks.append(self.rand_breaks(n, min_route, n_routes, n_breaks))
         ## transformation 5
-        if iteration < 15:
-            trans_5 = random.sample(range(1, n+1), n)
-            print trans_5
-            trans_5 = self.clarke_wright(trans_5, bestof8breaks, vertices)
-            temp_pop_route.append(trans_5)
-            temp_pop_breaks.append(bestof8breaks)
-        else:
-            temp_pop_route.append(trans_1)
-            temp_pop_breaks.append(self.rand_breaks(n, min_route, n_routes, n_breaks))
+        temp_pop_route.append(trans_1)
+        temp_pop_breaks.append(self.rand_breaks(n, min_route, n_routes, n_breaks))
         ## transformation 6        
         temp_pop_route.append(trans_2)
         temp_pop_breaks.append(self.rand_breaks(n, min_route, n_routes, n_breaks))
@@ -470,7 +457,6 @@ class Clarke_Wright(object):
             k_d = (edge[0],0)
         elif (0,edge[0]) in R:
             k_d = (0,edge[0])
-        else: print 'ERROR', edge, R
         return k_d
 
         
